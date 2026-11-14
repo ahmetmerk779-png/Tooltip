@@ -1,6 +1,6 @@
 package com.tooltipscaler.mixin;
 
-import com.llamalad7.mixinextras.injector.v2.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.tooltipscaler.TooltipScalerConfig;
 import net.minecraft.client.font.TextRenderer;
