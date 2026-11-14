@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "tooltipscaler",
+  "version": "${version}",
+  "name": "Tooltip Scaler",
+  "description": "Ekrana sığmayan veya çok büyük tooltip yazılarını otomatik küçültür.",
+  "authors": ["ahmetmerk779-png"],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": { "client": ["com.tooltipscaler.TooltipScalerClient"] },
+  "mixins": ["tooltipscaler.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.18.0",
+    "minecraft": "~1.21.11",
+    "java": ">=21"
+  }
+}
