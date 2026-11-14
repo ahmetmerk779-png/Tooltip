@@ -1,5 +1,7 @@
 name: Build
 on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: write
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -12,7 +14,22 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 9.2.1
-      - run: gradle build --no-daemon
+      - name: Build
+        run: |
+          set -o pipefail
+          gradle build --no-daemon --stacktrace 2>&1 | tee /tmp/build.log
+      - name: Publish log to build-log branch
+        if: failure()
+        run: |
+          cp /tmp/build.log "$RUNNER_TEMP/build.log"
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          git checkout --orphan build-log
+          git rm -rf . -q
+          cp "$RUNNER_TEMP/build.log" build.log
+          git add build.log
+          git commit -qm "build log"
+          git push -f origin build-log
       - uses: actions/upload-artifact@v4
         with:
           name: tooltip-scaler
